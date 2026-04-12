@@ -131,3 +131,26 @@ body {
 .btns {
     display: flex;
 }
+
+/* for scrolling button */
+
+#scrollTopBtn, #scrollBottomBtn {
+  position: fixed;
+  right: 20px;
+  padding: 10px 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#scrollTopBtn {
+  bottom: 80px;
+}
+
+#scrollBottomBtn {
+  bottom: 20px;
+}

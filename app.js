@@ -7,6 +7,9 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
+const cors = require('cors');
+const { listingSchema } = require("./schema.js")
+
 
 // Setting/Connecting the Database
 
@@ -26,10 +29,13 @@ main()
     
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")))
+app.use(cors());
+app.use(express.json());
 
     // Root Route
 app.get ("/", (req, res) => {
@@ -76,10 +82,11 @@ app.get("/listings/:id",wrapAsync (async(req, res) => {
 //Create Route
 app.post("/listings",wrapAsync (
      async (req,res, next) => {
-        if(!req.body.Listing) {
-            throw new ExpressError(400, "Send valid Data")
-        }
-    
+    let result = listingSchema.validate(req.body);  
+    console.log(result);
+    if(result.error) {
+        throw new ExpressError(400, result.error)
+    }
     // let { title, description, price, image, location, country } = req.body;
     const newListing = new Listing(req.body.listing);
     await newListing.save();
@@ -122,7 +129,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     let { statusCode=500, message="Something went wrong" } = err;
-    res.render("error.ejs", {err});
+    res.status(statusCode).render("error.ejs", {message});
     // res.status(statusCode).send(message);
 })
 
