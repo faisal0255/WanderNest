@@ -25,24 +25,25 @@
     </form>
     </div>
  
-    <div class="col-4 offset-3">
+    <div class="col-8 mx-auto mb-3">
         <hr>
-        <h4>Leave a Positive Review</h4>
+        <h4>Write a Positive Review</h4>
         <form >
-            <div>
-                <label for="rating">Rating</label>
+            <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>
                 <input type="range" min="1" max="5" id="rating" name="review[rating]">
             </div>
-            <div>
-                <label for="comment">Comment</label>
+            <div  class="mb-3 mt-3">
+                <label for="comment" class="form-label">Leave Your Comment</label>
                 <textarea 
                 name="review[comment]"
                 id="comment"
-                cols="30"
-                rows="10">
+                cols="20"
+                rows="5"
+                class="form-control">
             </textarea>
             </div>
-            <button>Submit Review</button>
+            <button class="btn btn-dark">Submit Review</button>
         </form>
     </div>
    
