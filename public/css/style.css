@@ -154,3 +154,16 @@ body {
 #scrollBottomBtn {
   bottom: 20px;
 }
+
+.sub-button {
+    color: white;
+    background-color: orangered;
+
+}
+
+.sub-button:hover {
+    color: white;
+    background-color: black;
+
+}
+

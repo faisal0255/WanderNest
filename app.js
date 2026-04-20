@@ -9,6 +9,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const cors = require('cors');
 const { listingSchema } = require("./schema.js");
+const review = require("./models/review.js");
 
 
 // Setting/Connecting the Database
@@ -127,7 +128,22 @@ app.delete("/listings/:id", wrapAsync (async(req, res) => {
     let deletedLisitng = await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
     console.log("Listing is Deleted Successfully")
-}))
+}));
+
+// Review Post Route
+
+app.post("/listings/:id/review", async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new review(req.body.review);
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+
+    console.log("New Review is saved");
+    res.redirect(`/listings/${listing._id}`);
+})
 
 
 
