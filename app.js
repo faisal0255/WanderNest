@@ -10,11 +10,15 @@ const ExpressError = require("./utils/ExpressError.js");
 const cors = require('cors');
 // const { listingSchema, reviewSchema  } = require("./schema.js");
 // const review = require("./models/review.js");
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser())
 
 // Requiring listings code to main app file
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const { log } = require("console");
 
 
 // Setting/Connecting the Database
@@ -45,11 +49,28 @@ app.use(express.json());
 
     // Root Route
 app.get ("/", (req, res) => {
+    console.dir(req.cookies);
     res.send("Hii This is Home route")
 });
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
+
+// Cookies
+
+app.get("/getcookies", (req,res) => {
+    res.cookie("Hello", "cookie");
+    res.cookie("name", "Faisal");
+    res.send("Hii receive this cookie");
+});
+
+// Sending Cookies by terminal
+
+app.get("/greet", (req, res) => {
+    let { name = "aunonanemous" } = req.cookies;
+    console.dir(`Hi ${name}`);
+    res.send(`Hiii ${name}`);
+})
 
 // handling all invalid route
 
