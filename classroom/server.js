@@ -22,13 +22,23 @@ app.get("/", () =>{
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use((req, res, next) => {
+    res.locals.successMsg = req.flash("success")
+    res.locals.errorMsg = req.flash("error")
+    next()
+})
+
 app.use("/users", users);
 app.use("/posts", posts);
 
 app.get("/register", (req, res) => {
     let { name = "anonymous"} = req.query;
     req.session.name = name;
-    req.flash("success", "User registered succesfully")
+    if(name == "anonymous") {
+        req.flash("error", "User not registered ")
+    } else {
+        req.flash("success", "User registered succesfully")
+    }
     res.redirect("/hello");
 })
 
