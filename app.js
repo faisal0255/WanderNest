@@ -8,7 +8,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 
-app.use(cookieParser())
+app.use(cookieParser("secretcode"));
 
 // Requiring listings code to main app file
 
@@ -66,6 +66,20 @@ app.get("/greet", (req, res) => {
     let { name = "aunonanemous" } = req.cookies;
     console.dir(`Hi ${name}`);
     res.send(`Hiii ${name}`);
+});
+
+// Sending signed cookies
+
+app.get("/getsignedcookies", (req, res) => {
+    res.cookie("color", "Red", {signed : true});
+    res.send("Signed cookie send");
+});
+
+// Verify signed cookies
+
+app.get("/verify", (req, res) =>{
+    console.log(req.signedCookies);
+    res.send("Cookie Verified..!")
 })
 
 // handling all invalid route
