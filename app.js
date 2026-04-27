@@ -7,6 +7,8 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
+const session = require("express-session")
+const flash = require("connect-flash");
 
 app.use(cookieParser("secretcode"));
 
@@ -15,6 +17,7 @@ app.use(cookieParser("secretcode"));
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const { log } = require("console");
+const { Http2ServerRequest } = require("http2");
 
 
 // Setting/Connecting the Database
@@ -43,11 +46,30 @@ app.use(express.static(path.join(__dirname, "/public")))
 app.use(cors());
 app.use(express.json());
 
+const sessionOption = {
+    secret: "mysupersecretcode",
+    resave: false,
+    saveUninitialized: true,
+    cookie : {
+        expire: Date.now() + 7 * 24 * 60 * 60 * 1000, // + days * hour/day * min/hour * sec/min * milisec/min 
+        maxAge:  7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
+    },
+}
+
     // Root Route
 app.get ("/", (req, res) => {
     console.dir(req.cookies);
     res.send("Hii This is Home route")
 });
+
+app.use(session(sessionOption));
+app.use(flash());
+
+app.use((req, res, next)=>{
+    res.locals.success = req.flash("success");
+    next();
+})
 
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
