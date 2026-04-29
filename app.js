@@ -81,6 +81,15 @@ app.use((req, res, next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
+});
+
+app.get("/demouser",async (req, res) => {
+    let fakeUser = new User( {
+        email: "myname@gmail.com",
+        username: "local-user"
+    });
+    let registeredUser = await User.register(fakeUser, "mynameislocal");
+    res.send(registeredUser)
 })
 
 app.use("/listings", listings);
