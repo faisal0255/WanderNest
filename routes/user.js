@@ -7,12 +7,17 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", async(req,res) => {
-    let { username, email, password } = req.body;
-    const newUser = new User({username, email});
-    const registeredUser = await User.register({email, username}, password);
-    console.log(registeredUser);
-    req.flash("success", "Welcome to WanderNest");
-    res.redirect("/listings");
+   try {
+        let { username, email, password } = req.body;
+        const newUser = new User({username, email});
+        const registeredUser = await User.register({email, username}, password);
+        console.log(registeredUser);
+        req.flash("success", "Welcome to WanderNest");
+        res.redirect("/listings");
+   } catch(e) {
+    req.flash("error", e.message);
+    res.redirect("/signup");
+   }
 })
 
 module.exports = router;
