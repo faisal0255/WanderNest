@@ -17,8 +17,9 @@ app.use(cookieParser("secretcode"));
 
 // Requiring listings code to main app file
 
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js")
 const { log } = require("console");
 const { Http2ServerRequest } = require("http2");
 
@@ -92,8 +93,9 @@ app.get("/demouser",async (req, res) => {
     res.send(registeredUser)
 })
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/", userRouter);
 
 // Cookies
 

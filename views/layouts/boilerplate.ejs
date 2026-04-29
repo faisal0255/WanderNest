@@ -25,12 +25,15 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="d-flex flex-column" style="min-height: 100vh;">
     <%- include("../includes/navbar.ejs") %>
     <!-- <h1>WanderNest </h1> -->
-    <div class="container">
-      <%- include("../includes/flash.ejs") %> <%- body %></div>
-
+    <main class="flex-grow-1">
+      <div class="container">
+        <%- include("../includes/flash.ejs") %> 
+        <%- body %>
+      </div>
+    </main>
     <%- include("../includes/footer.ejs") %>
     <!-- JavaScipt tag for bootstrap -->
     <script
