@@ -28,7 +28,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", passport.authenticate("local", {failureRedirect: "/login", failureFlash: true}), async(req,res) =>{
-    req.flash("success", "Welcome Back to World of WonderNest");
+    req.flash("success", "Welcome Back to the World of WonderNest");
     res.redirect("/listings")
 })
 
