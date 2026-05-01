@@ -167,8 +167,14 @@ footer {
 /* New Page Styling */
 
 .btn {
-    background-color: #fe424d !important;
+    /* background-color: orangered !important; */
     border: none !important;
+}
+
+.btn-orange {
+    background-color: orangered !important;
+    color: white !important;
+    font-weight: bold !important;
 }
 
 /* show page */
@@ -179,6 +185,29 @@ footer {
 
 .btns {
     display: flex;
+}
+
+/* review btn delete styling */
+.del-button {
+    color: #ebebeb;
+    /* border: none !important; */
+    border: 2px solid green;
+    border-radius: 2px;
+    background-color: rgb(8, 2, 0);
+
+}
+
+.sub-button {
+    height: 35px;
+    color: white;
+    background-color: rgb(9, 173, 105);
+
+}
+
+.sub-button:hover {
+    color: white;
+    background-color: rgb(105, 28, 222);
+
 }
 
 /* for scrolling button */
@@ -204,21 +233,5 @@ footer {
   bottom: 20px;
 }
 
-.del-button {
-    color: white;
-    background-color: rgb(8, 2, 0);
-
-}
-
-.sub-button {
-    color: white;
-    background-color: orangered;
-
-}
-
-.sub-button:hover {
-    color: white;
-    background-color: black;
-
-}
+/* for scrolling button */
 
