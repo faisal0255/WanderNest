@@ -174,7 +174,7 @@ footer {
 .btn-orange {
     background-color: orangered !important;
     color: white !important;
-    font-weight: bold !important;
+    font-weight: bold;
 }
 
 /* show page */
