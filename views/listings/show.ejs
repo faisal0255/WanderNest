@@ -3,7 +3,7 @@
     <div class="col-8 offset-2">
     <h3><%= listing.title %> </h3>
 </div>
-    <div class="card col-6 offset-2 listting-card">
+    <div class="card  col-6 offset-2 listing-card">
         <img src="<%= listing.image.url%>" alt="Listing_image" class="card-img-top show-image">
         <div class="card-body">
             <p class="card-text">
@@ -19,6 +19,7 @@
 
     <br>
 
+<% if (curUser && listing.owner._id.equals(curUser._id)) { %>
 
     <div class="btns">
         <a href="/listings/<%= listing._id%>/edit" class="btn btn-orange col-1 offset-2">Edit</a>
@@ -26,8 +27,10 @@
         <button class="btn btn-dark col-12 offset-2">Delete</button>
     </form>
     </div>
+    <% } %>
     <div class="col-8 mx-auto mb-3">
         <hr>
+        <% if(curUser) { %> 
         <h4>Write a Positive Review</h4>
         <form 
         action="/listings/<%= listing.id %>/reviews" 
@@ -51,20 +54,23 @@
             </div>
             <button class="sub-button" >Submit Review</button>
         </form>
+        <% } %> 
         <hr>
+   
         <h4>All Reviews</h4>
 
         <div class="row">
              <% for (review of listing.reviews) { %>
                 <div class="card col-5 ms-3 mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Jenny Lisa</h5>
+                        <h5 class="card-title"> Jenni </h5>
                         <p class="card-text"><%= review.comment%></p>
                         <p class="card-text"><%= review.rating%>⭐</p>
-                    </div>
-                    <form class="mb-3" method="POST" action="/listings/<%= listing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                     <form class="mb-3" method="POST" action="/listings/<%= listing._id%>/reviews/<%=review._id%>?_method=DELETE">
                         <button class=" btn-sm btn-dark del-button">Delete</button>
-                    </form>
+                      </form>
+                    </div>
                 </div>
-               <% } %> 
+                     <% } %>
+                </div>
         </div>
