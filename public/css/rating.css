@@ -48,7 +48,10 @@
 }
 
 .starability-slot {
-  display: block;
+  /* display: block; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   position: relative;
   width: 150px;
   min-height: 60px;
@@ -109,7 +112,7 @@
 .starability-slot > label {
   position: relative;
   display: inline-block;
-  float: left;
+  /* float: left; */
   width: 30px;
   height: 30px;
   font-size: 0.1em;
