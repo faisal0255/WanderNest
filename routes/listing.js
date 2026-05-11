@@ -7,7 +7,8 @@ const Listing = require("../models/listing.js")
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController  = require("../controllers/listings.js");
 const multer  = require('multer');
-const upload = multer({ dest: 'uploads/' })
+const { storage } = require("../cloudeConfig.js")
+const upload = multer({ storage })
 
 
 // Index Route
@@ -22,12 +23,10 @@ router.get("/:id",wrapAsync (listingController.showListings))
 
 //Create Route
 router.post("/",
-    // isLoggedIn,
-    // validateListing,
-    // wrapAsync (listingController.createListings)
-    upload.single('listing[image]'), (req, res) => {
-        res.send(req.file);
-    }
+    isLoggedIn,
+    upload.single('listing[image]'),
+    validateListing,
+    wrapAsync (listingController.createListings)
 );
 
 // Edit Route
